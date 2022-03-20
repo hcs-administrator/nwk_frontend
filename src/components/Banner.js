@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+
 import logo from '../static/logo_transparent_web_sm.png';
 import background from '../static/cropped-omer-faruk-bekdemir-5BuxuWIJF1Q-unsplash.jpeg'
 
@@ -14,7 +16,10 @@ export const Banner = () => {
                     <h1 className="myFont text-xl">To collaborate as a Christian community of learning for all ākonga to be equipped and to realise their holistic God-given purpose to experience shalom.</h1>
 
                     <div className="flex">
-                        <div className="rounded-full bg-sky-900 pl-4 p-2 mt-2 pt-3 sm:pt-2 w-1/2 myFont text-white cursor">Who are we?</div>
+                        <Link to="/who" className="rounded-full bg-sky-900 pl-4 p-2 mt-2 pt-3 sm:pt-2 w-1/2 myFont text-white cursor">
+                            Who are we?
+                        </Link>
+
                         <div className="rounded-full bg-white pl-4 p-2 mt-2 pt-3 sm:pt-2 w-1/2 myFont border-2 border-sky-900 cursor">View Workshops</div>
                     </div>
 

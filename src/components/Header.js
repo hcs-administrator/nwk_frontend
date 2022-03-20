@@ -1,6 +1,8 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import logo from '../static/logo_transparent_web_sm.png';
 
+import { Link } from "react-router-dom";
+
 export const Header = () => {
 
     const [dimensions, setDimensions] = useState({
@@ -44,7 +46,7 @@ export const Header = () => {
             })
         }
 
-        getDriveLinks('menu-bar')
+        getDriveLinks('workshops')
 
         //setWidth(window.innerWidth)
         function handleResize() {
@@ -68,6 +70,20 @@ export const Header = () => {
                     {dimensions.width < 700 ? "Kāhui Ako" : "Ngā Whānau O Karaiti Kāhui Ako"}
                 </span>
 
+                {/* <!-- Desktop Menu --> */}
+                <div className="grow-0 hidden md:flex cursor">
+                    <Link to="/" >
+                        <div class="p-2 m-2 rounded-md text-white">
+                            Home
+                        </div>
+                    </Link>
+                    <Link to="/who" >
+                        <div class="p-2 m-2 rounded-md text-white">
+                            Who are we?
+                        </div>
+                    </Link>
+                </div>
+
                 <div className="flex grow-0 md:hidden cursor">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -87,9 +103,27 @@ export const Header = () => {
                 </div>
 
             </div>
+
+            {/* <!-- Mobile Menu --> */}
             <div id="menu-bar" className="h-auto bg-sky-900 text-white w-screen items-center p-3 hidden" >
-                <div className="text-2xl text-left ml-4">Workshops</div>
+                <div id="menu">
+                    <div className="text-2xl text-left ml-4">Menu</div>
+                    <Link to="/" >
+                        <div class="bg-blue-100 p-2 m-2 rounded-md text-black">
+                            Home
+                        </div>
+                    </Link>
+                    <Link to="/who" >
+                        <div class="bg-blue-100 p-2 m-2 rounded-md text-black">
+                            Who are we?
+                        </div>
+                    </Link>
+                </div>
+                <div id="workshops">
+                    <div className="text-2xl text-left ml-4">Workshops</div>
+                </div>
             </div>
+
         </Fragment>
     );
 }
