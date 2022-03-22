@@ -10,15 +10,20 @@ export const WhoAreWe = () => {
     <Fragment>
       <Header />
 
-      <div className="flex grow w-screen mt-5">
-        <div className="flex grow w-4/5 justify-center">
+{/* flex w-1/2 m-5 mt-5 bg-blue-200 */}
+      <div className="flex w-screen justify-center">
+        
+        <div className="flex w-screen sm:w-1/2 p-2 sm:p-0 justify-center mt-4">
 
-          <SideNavBar id="sideBar"/>
+          <div className="hidden sm:flex sm:w-2/6">
+            <SideNavBar id="sideBar"/>
+          </div>
 
-          <div className="sm: p-8 md:p-0">
+          <div className="w-full text-justify">
             <ViewGoogleDocs fileId={"1NJ68n0ZUudDT_kWFbqyWuJWurZ1HtIKWZvexDg89lZs"} id="who-are-we" />
             <ViewGoogleDocs fileId={"12hU9uGB0bU74rXyZwn6_n9B8qLwrjMgZ7F6zWYdm7cw"} id="our-schools" />
           </div>  
+
         </div>
       </div>
 

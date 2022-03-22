@@ -24,10 +24,9 @@ export const Header = () => {
 
         const getDriveLinks = async (id) => {
 
-            return await fetch(`http://localhost:4000/drivelist/`)
+            return await fetch(`${process.env.REACT_APP_SERVER}/drivelist/`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
 
                 let output = ""
 
@@ -35,7 +34,7 @@ export const Header = () => {
                         ${data.files.map(file => {
                             return (
                                 `<li class="bg-blue-100 p-2 m-2 rounded-md text-black">
-                                    <a href="#" className="text-black">${file.name}</a>
+                                    <a href="/workshops/${file.id}"} className="text-black">${file.name}</a>
                                 </li>`
                             )
                         }).join("")}
@@ -73,12 +72,12 @@ export const Header = () => {
                 {/* <!-- Desktop Menu --> */}
                 <div className="grow-0 hidden md:flex cursor">
                     <Link to="/" >
-                        <div class="p-2 m-2 rounded-md text-white">
+                        <div className="p-2 m-2 rounded-md text-white">
                             Home
                         </div>
                     </Link>
                     <Link to="/who" >
-                        <div class="p-2 m-2 rounded-md text-white">
+                        <div className="p-2 m-2 rounded-md text-white">
                             Who are we?
                         </div>
                     </Link>
@@ -109,12 +108,12 @@ export const Header = () => {
                 <div id="menu">
                     <div className="text-2xl text-left ml-4">Menu</div>
                     <Link to="/" >
-                        <div class="bg-blue-100 p-2 m-2 rounded-md text-black">
+                        <div className="bg-blue-100 p-2 m-2 rounded-md text-black">
                             Home
                         </div>
                     </Link>
                     <Link to="/who" >
-                        <div class="bg-blue-100 p-2 m-2 rounded-md text-black">
+                        <div className="bg-blue-100 p-2 m-2 rounded-md text-black">
                             Who are we?
                         </div>
                     </Link>

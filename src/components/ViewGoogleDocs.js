@@ -4,21 +4,28 @@ export const ViewGoogleDocs = ({fileId, id}) => {
 
     useEffect(() => {
         const getFile = async (fileId, id) => {
-            return await fetch(`http://localhost:4000/getFile/${fileId}`)
+            return await fetch(`${process.env.REACT_APP_SERVER}/getFile/${fileId}`)
             .then(res => res.json())
             .then(data => {
 
                 let getImage = (imageId) => data.inlineObjects[imageId].inlineObjectProperties.embeddedObject.imageProperties.contentUri
 
                 const content = data.body.content.filter(c => c.hasOwnProperty('paragraph') || c.hasOwnProperty('table'))
-                //console.log(content) //6 has an image
 
                 const output = content.map(o => {
 
-                    //console.log(o)
-
                     // IF Object is a textRun with Heading
                     if ( o.hasOwnProperty('paragraph') ) {
+
+                        // Change iframe properties
+                        if ( o.paragraph.elements[0].textRun.content.substring(0, 7) === "<iframe" ) {
+                            let splits = o.paragraph.elements[0].textRun.content.split(" ")
+
+                            return (
+                                `<iframe ${splits[1]} style="width: 100%; max-width: 500px; min-height: 300px; max-height: 440px; border: none" ></iframe>`
+                            )
+                        }
+
                         if ( o.paragraph.paragraphStyle.namedStyleType === "HEADING_1" ) {
                             if ( o.paragraph.elements[0].textRun.hasOwnProperty('textStyle') ) {
                                 let styles = o.paragraph.elements[0].textRun.textStyle
@@ -40,7 +47,7 @@ export const ViewGoogleDocs = ({fileId, id}) => {
                         else if ( o.paragraph.paragraphStyle.namedStyleType === "HEADING_2" ) {
                             if ( o.paragraph.elements[0].textRun.hasOwnProperty('textStyle') ) {
                                 let styles = o.paragraph.elements[0].textRun.textStyle
-                                //console.log(styles)
+
                                 return (
                                     `<h2 style="${[
                                         styles.hasOwnProperty('bold') ? `font-weight:bold;` : `font-weight:normal`, 
@@ -58,6 +65,8 @@ export const ViewGoogleDocs = ({fileId, id}) => {
 
                         else if ( o.paragraph.paragraphStyle.namedStyleType === "NORMAL_TEXT" ) {
                             if ( o.paragraph.elements[0].hasOwnProperty('textRun') ) {
+                                
+                                // Add Styles to Paragraph
                                 if ( o.paragraph.elements[0].textRun.hasOwnProperty('textStyle') ) {
                                     let styles = o.paragraph.elements[0].textRun.textStyle
                                     return (
@@ -73,21 +82,17 @@ export const ViewGoogleDocs = ({fileId, id}) => {
                                         `<p>${o.paragraph.elements[0].textRun.content}</p>`
                                     )
                                 }
-                            } else if ( o.paragraph.elements[0].hasOwnProperty('inlineObjectElement') ) {
 
-                                //console.log(o.paragraph.elements[0])
+                            } else if ( o.paragraph.elements[0].hasOwnProperty('inlineObjectElement') ) {
 
                                 return (
                                     `<img style="max-width: 200px" src=${getImage(o.paragraph.elements[0].inlineObjectElement.inlineObjectId)} alt="google_image" />`
                                 )
                             } 
                         }                        
-                        //return <p>${o.paragraph.paragraphStyle.namedStyleType}</p>
                     } 
 
                     else if ( o.hasOwnProperty('table') ) {
-
-                        //console.log(o.table)
 
                         return (
                             `<table>
@@ -135,5 +140,5 @@ export const ViewGoogleDocs = ({fileId, id}) => {
           getFile(fileId, id) 
     })
 
-    return <div id={id} style={{flex: 0.4}}/>
+    return <div id={id} />
 }

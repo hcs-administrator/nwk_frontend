@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { WhoAreWe } from "./routes/WhoAreWe"
 import { Home } from "./routes/Home"
+import { Workshops } from "./routes/Workshops"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/who" element={<WhoAreWe />} />
+        <Route path="/workshops/:fileId" element={<Workshops />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
