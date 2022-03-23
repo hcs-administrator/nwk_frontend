@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
 
+    const [showMenu, setShowMenu] = useState(true)
+
+    const [driveLinks, setDriveLinks] = useState([])
+
     const [dimensions, setDimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight
@@ -13,13 +17,20 @@ export const Header = () => {
     useEffect(() => {
 
         // Mobile Menu
+
         let menuButton = document.querySelector('#menu-button')
         menuButton.addEventListener('click', () => {
-            
             let menuBar = document.querySelector('#menu-bar')
-            menuBar.classList.toggle('hidden')
-            //menuBar.classList.toggle('flex')
-
+        
+            if (showMenu) {
+                menuBar.classList.remove('hidden')
+                console.log("Menu is shown")
+                setShowMenu(!showMenu)
+            } else {
+                menuBar.classList.add('hidden')
+                console.log("Menu is hidden")
+                setShowMenu(!showMenu)
+            }
         })
 
         const getDriveLinks = async (id) => {
@@ -27,21 +38,7 @@ export const Header = () => {
             return await fetch(`${process.env.REACT_APP_SERVER}/drivelist/`)
             .then(res => res.json())
             .then(data => {
-
-                let output = ""
-
-                output += `<ul>
-                        ${data.files.map(file => {
-                            return (
-                                `<li class="bg-blue-100 p-2 m-2 rounded-md text-black">
-                                    <a href="/workshop?fileId=${file.id}"} className="text-black">${file.name}</a>
-                                </li>`
-                            )
-                        }).join("")}
-                    </ul>`
-
-                const fileIdContainer = document.querySelector(`#${id}`)
-                fileIdContainer.innerHTML += output
+                setDriveLinks(data.files)
             })
         }
 
@@ -120,6 +117,21 @@ export const Header = () => {
                 </div>
                 <div id="workshops">
                     <div className="text-2xl text-left ml-4">Workshops</div>
+                    <ul>
+                    {driveLinks.length > 0 && (
+                        driveLinks.map(file => {
+                            return (
+                                <li key={file.id} className="bg-blue-100 p-2 m-2 rounded-md text-black">
+                                    <Link to={`/workshop?fileId=${file.id}`} className="text-black">{file.name}</Link>
+                                </li>
+                            )
+                        })
+                    )} {driveLinks.length === 0 && (
+                        <li>
+                            {"Loading..."}
+                        </li>
+                    )} 
+                    </ul>
                 </div>
             </div>
 
