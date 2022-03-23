@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import {Header} from '../components/Header'
 
@@ -11,7 +11,7 @@ import { ViewGoogleDocs } from '../components/ViewGoogleDocs'
 //{fileId}
 export const Workshops = () => {
 
-  let { fileId } = useParams(); 
+  let fileId = useLocation().search.split("=")[1]
 
   const [docId, setDocId] = useState("")
 
@@ -48,7 +48,7 @@ export const Workshops = () => {
           </div>
 
           <div className="w-full text-justify">
-            {docId !== "NO FILES" ? <ViewGoogleDocs fileId={"1Xdl78V8N0H9KO7DjkkvuLT-Z46LThLBlGtGxTWIXqz4"} id="document" /> : <h1>No Document in Folder...</h1>}
+            {docId !== "NO FILES" ? <ViewGoogleDocs fileId={docId} id="document" /> : <h1>No Document in Folder...</h1>}
           </div>  
 
         </div>

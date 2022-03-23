@@ -14,9 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
         <Route path="/who" element={<WhoAreWe />} />
-        <Route path="/workshops/:fileId" element={<Workshops />} />
+        <Route path="/workshop" element={<Workshops />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
