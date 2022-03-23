@@ -5,10 +5,7 @@ import {Header} from '../components/Header'
 
 import { SideNavBar } from '../components/SideNavBar'
 import { ViewGoogleDocs } from '../components/ViewGoogleDocs'
-// import { ViewGoogleSlides } from '../components/ViewGoogleSlides'
-// import { ViewVideo } from '../components/ViewVideo';
 
-//{fileId}
 export const Workshops = () => {
 
   let fileId = useLocation().search.split("=")[1]
@@ -16,6 +13,8 @@ export const Workshops = () => {
   const [docId, setDocId] = useState("")
 
   useEffect(() => {
+
+    document.title = "Kāhui Ako :: Workshop"
 
     const getFiles = async () => {
       return  fetch(`${process.env.REACT_APP_SERVER}/getAllFilesFromFolder/${fileId}`)
@@ -41,13 +40,13 @@ export const Workshops = () => {
 
       <div className="flex w-screen justify-center">
         
-        <div className="flex w-screen sm:w-1/2 p-2 sm:p-0 justify-center mt-4">
+        <div className="flex w-screen sm:w-2/3 p-2 sm:p-0 justify-center mt-4">
 
-          <div className="hidden sm:flex sm:w-2/6">
+          <div className="hidden sm:flex sm:w-3/6 ">
             <SideNavBar id="sideBar"/>
           </div>
 
-          <div className="w-full text-justify">
+          <div className="w-full text-justify m-4">
             {docId !== "NO FILES" ? <ViewGoogleDocs fileId={docId} id="document" /> : <h1>No Document in Folder...</h1>}
           </div>  
 

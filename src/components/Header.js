@@ -34,7 +34,7 @@ export const Header = () => {
                         ${data.files.map(file => {
                             return (
                                 `<li class="bg-blue-100 p-2 m-2 rounded-md text-black">
-                                    <a href="/workshops/${file.id}"} className="text-black">${file.name}</a>
+                                    <a href="/workshop?fileId=${file.id}"} className="text-black">${file.name}</a>
                                 </li>`
                             )
                         }).join("")}
