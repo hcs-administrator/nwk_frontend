@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { WhoAreWe } from "./routes/WhoAreWe"
 import { Home } from "./routes/Home"
 import { Workshops } from "./routes/Workshops"
+import { Privacy } from "./routes/Privacy"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Route exact path="/" element={<Home />} />
         <Route path="/who" element={<WhoAreWe />} />
         <Route path="/workshop" element={<Workshops />} />
+        <Route path="/privacy" element={<Privacy />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
