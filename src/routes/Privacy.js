@@ -5,7 +5,7 @@ import {Banner} from '../components/Banner'
 
 import { SideNavBar } from '../components/SideNavBar'
 
-export const Home = () => {
+export const Privacy = () => {
 
   useEffect(() => {
     document.title = "Kāhui Ako :: Privacy"
