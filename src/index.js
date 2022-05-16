@@ -10,6 +10,7 @@ import { WhoAreWe } from "./routes/WhoAreWe"
 import { Home } from "./routes/Home"
 import { Workshops } from "./routes/Workshops"
 import { Privacy } from "./routes/Privacy"
+import { Calendar } from "./routes/Calendar"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route path="/who" element={<WhoAreWe />} />
         <Route path="/workshop" element={<Workshops />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

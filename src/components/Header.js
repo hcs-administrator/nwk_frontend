@@ -78,6 +78,11 @@ export const Header = () => {
                             Who are we?
                         </div>
                     </Link>
+                    <Link to="/calendar" >
+                        <div className="p-2 m-2 rounded-md text-white">
+                            Calendar
+                        </div>
+                    </Link>
                 </div>
 
                 <div className="flex grow-0 md:hidden cursor">
