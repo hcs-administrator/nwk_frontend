@@ -26,14 +26,17 @@ export const Privacy = () => {
           </div>
 
             <div className="w-full text-justify m-4">
-                <h1>Privacy</h1>
+                
+                <h1 className="text-2xl mb-4">Privacy</h1>
+
                 <p>
-                    The Nga Whānau Kāhui Ako is a collection of resources that support Christian Education.
-                    <br />
+                    The Ngā Whānau O Karaiti Kāhui Ako is a collection of resources that support Christian Education.
+                    <br /><br />
                     The information is publicly avaible and users do not need to register to view this information.
-                    <br />
+                    <br /><br />
                     Also no information is collected from the sites visitors.
                 </p>
+
             </div>  
 
         </div>
