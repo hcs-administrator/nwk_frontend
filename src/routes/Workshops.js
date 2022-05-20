@@ -10,25 +10,33 @@ export const Workshops = () => {
 
   let fileId = useLocation().search.split("=")[1]
 
-  const [docId, setDocId] = useState("")
+  const [docId, setDocId] = useState("NO FILES")
 
   useEffect(() => {
 
     document.title = "Kāhui Ako :: Workshop"
 
     const getFiles = async () => {
-      return  fetch(`${process.env.REACT_APP_SERVER}/getAllFilesFromFolder/${fileId}`)
-              .then(res => res.json())
-              .then(data => {
 
-                if (data.length > 0) {
-                  let getDocId = data.filter(d => d.mimeType === "application/vnd.google-apps.document")[0].id
-                  setDocId(getDocId)
-                } else {
-                  setDocId("NO FILES")
-                }
+      if (fileId !== undefined) {
 
-              })
+        const url = `${process.env.REACT_APP_SERVER}/getAllFilesFromFolder/${fileId}`
+
+        const res = await fetch(url)
+        const data = await res.json()
+
+        console.log(data)
+
+        if (data.length > 0) {
+          let getDocId = data.filter(d => d.mimeType === "application/vnd.google-apps.document")[0].id
+          setDocId(getDocId)
+        }
+
+      } else {
+        setDocId("NO FILES")
+      }
+
+
     }
     getFiles()
 
@@ -47,7 +55,7 @@ export const Workshops = () => {
           </div>
 
           <div className="w-full text-justify m-4">
-            {docId !== "NO FILES" ? <ViewGoogleDocs fileId={docId} id="document" /> : <h1>No Document in Folder...</h1>}
+            {docId !== "NO FILES" ? <ViewGoogleDocs fileId={docId} id="document" /> : <h1>Please select a workshop from the menu</h1>}
           </div>  
 
         </div>
