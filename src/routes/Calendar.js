@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from 'react';
 
 import {Header} from '../components/Header'
+import { Footer } from '../components/Footer';
 
 import { SideNavBar } from '../components/SideNavBar'
 
@@ -28,6 +29,8 @@ export const Calendar = () => {
 
         </div>
       </div>
+
+      <Footer/>
 
     </Fragment>
   )

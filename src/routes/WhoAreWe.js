@@ -1,6 +1,7 @@
 import { Fragment, useEffect } from 'react';
 
 import {Header} from '../components/Header'
+import { Footer } from '../components/Footer';
 
 import { SideNavBar } from '../components/SideNavBar'
 import { ViewGoogleDocs } from '../components/ViewGoogleDocs'
@@ -31,6 +32,8 @@ export const WhoAreWe = () => {
 
         </div>
       </div>
+
+      <Footer/>
 
     </Fragment>
   )

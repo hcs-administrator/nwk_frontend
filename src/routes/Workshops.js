@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 
 import {Header} from '../components/Header'
+import { Footer } from '../components/Footer';
 
 import { SideNavBar } from '../components/SideNavBar'
 import { ViewGoogleDocs } from '../components/ViewGoogleDocs'
@@ -60,6 +61,8 @@ export const Workshops = () => {
 
         </div>
       </div>
+
+      <Footer/>
 
     </Fragment>
   )
