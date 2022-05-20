@@ -11,6 +11,7 @@ import { Home } from "./routes/Home"
 import { Workshops } from "./routes/Workshops"
 import { Privacy } from "./routes/Privacy"
 import { Calendar } from "./routes/Calendar"
+import { NotFound } from "./routes/NotFound"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/workshop" element={<Workshops />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/calendar" element={<Calendar />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
