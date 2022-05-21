@@ -6,13 +6,33 @@ import { Link } from "react-router-dom";
 export const Header = () => {
 
     const [showMenu, setShowMenu] = useState(true)
-
-    const [driveLinks, setDriveLinks] = useState([])
-
+    
     const [dimensions, setDimensions] = useState({
         width: window.innerWidth,
         height: window.innerHeight
     })
+
+    const [seriesLinks, setSeriesLinks] = useState([])
+    const [seasonLinks, setSeasonLinks] = useState([])
+    const [episodeLinks, setEpisodesLinks] = useState([])
+
+    const [selectedSeries, setSelectedSeries] = useState("")
+    const [selectedSeason, setSelectedSeason] = useState("")
+    const [selectedEpisode, setSelectedEpisode] = useState("")
+
+    const changeSeries = (selection) => {
+        setSeasonLinks([])
+        setSelectedSeason(selection)
+    }
+
+    const changeSeason = (selection) => {
+        setEpisodesLinks([])
+        setSelectedEpisode(selection)
+    }
+
+    const changeEpisode = (selection) => {
+        window.location = `/workshop?fileId=${selection}`
+    }
 
     useEffect(() => {
 
@@ -33,17 +53,6 @@ export const Header = () => {
             }
         })
 
-        const getDriveLinks = async (id) => {
-
-            return await fetch(`${process.env.REACT_APP_SERVER}/drivelist/`)
-            .then(res => res.json())
-            .then(data => {
-                setDriveLinks(data.files)
-            })
-        }
-
-        getDriveLinks('workshops')
-
         //setWidth(window.innerWidth)
         function handleResize() {
             setDimensions({
@@ -54,7 +63,39 @@ export const Header = () => {
 
         window.addEventListener('resize', handleResize)
 
-    })
+        /////////   MENU ///////////////
+
+        setSelectedSeries("11pBICyGBEBABnnlwmbCc9I2WS0zIPjHB")
+
+
+        if (seriesLinks.length === 0 ) {
+            (async () => {
+                const url = `${process.env.REACT_APP_SERVER}/drivelist/${selectedSeries}`
+                const res = await fetch(url)
+                const data = await res.json()
+                setSeriesLinks(data.files)
+            })()
+        }
+
+        if (seasonLinks.length === 0 && selectedSeason !== "") {
+            (async () => {
+                const url = `${process.env.REACT_APP_SERVER}/drivelist/${selectedSeason}`
+                const res = await fetch(url)
+                const data = await res.json()
+                setSeasonLinks(data.files)
+            })()
+        }
+
+        if (episodeLinks.length === 0 && selectedEpisode !== "") {
+            (async () => {
+                const url = `${process.env.REACT_APP_SERVER}/drivelist/${selectedEpisode}`
+                const res = await fetch(url)
+                const data = await res.json()
+                setEpisodesLinks(data.files)
+            })()
+        }
+
+    }, [showMenu, seriesLinks, seasonLinks, episodeLinks, selectedSeries, selectedSeason, selectedEpisode])
 
     return (
         <Fragment>
@@ -119,24 +160,40 @@ export const Header = () => {
                             Who are we?
                         </div>
                     </Link>
+                    <Link to="/calendar" >
+                        <div className="bg-blue-100 p-2 m-2 rounded-md text-black">
+                            Calendar
+                        </div>
+                    </Link>
                 </div>
+
                 <div id="workshops">
                     <div className="text-2xl text-left ml-4">Workshops</div>
-                    <ul>
-                    {driveLinks.length > 0 && (
-                        driveLinks.map(file => {
-                            return (
-                                <li key={file.id} className="bg-blue-100 p-2 m-2 rounded-md text-black">
-                                    <Link to={`/workshop?fileId=${file.id}`} className="text-black">{file.name}</Link>
-                                </li>
-                            )
-                        })
-                    )} {driveLinks.length === 0 && (
-                        <li>
-                            {"Loading..."}
-                        </li>
-                    )} 
-                    </ul>
+
+                    <div className="text-xl p-2 ml-2">
+                        <h3>Series</h3>
+                        <select id="series" name="series" defaultValue={{label: "Select an Option", value: "none"}}  className="text-base p-2 bg-sky-300 m-4 ml-0 rounded-md w-full text-black" onChange={e => changeSeries(e.target.value)}>
+                            <option value="none" >Select an Option</option>
+                            {seriesLinks.map(file => (
+                                <option key={file.id} value={file.id} >{file.name}</option>
+                            ))}
+                            </select>
+                        <h3>Seasons</h3>
+                        <select id="seasons" name="seasons" defaultValue={{label: "Select a series first", value: "none"}} className="text-base p-2 bg-sky-300 m-4 ml-0 rounded-md w-full text-black" onChange={e => changeSeason(e.target.value)}>
+                            <option defaultValue="none" >Select a series first</option>
+                            {seasonLinks.map(file => (
+                                <option key={file.id} value={file.id} >{file.name}</option>
+                            ))}
+                        </select>
+                        <h3>Episodes</h3>
+                        <select id="episodes" name="episodes" defaultValue={{label: "Select a season first", value: "none"}} className="text-base p-2 bg-sky-300 m-4 ml-0 rounded-md w-full text-black" onChange={e => changeEpisode(e.target.value)}>
+                            <option defaultValue="none" >Select a season first</option>
+                            {episodeLinks.map(file => (
+                                <option key={file.id} value={file.id} >{file.name}</option>
+                            ))}
+                        </select>
+                    </div>
+
                 </div>
             </div>
 
