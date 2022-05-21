@@ -49,7 +49,7 @@ export const Workshops = () => {
 
       <div className="flex w-screen justify-center">
         
-        <div className="flex w-screen sm:w-2/3 p-2 sm:p-0 justify-center mt-4">
+        <div className="flex w-screen sm:w-4/5 p-2 sm:p-0 justify-center mt-4">
 
           <div className="hidden sm:flex sm:w-3/6 ">
             <SideNavBar id="sideBar"/>
